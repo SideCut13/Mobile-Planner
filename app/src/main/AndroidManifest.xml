@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddEvent" ></activity>
+        <activity android:name=".DailyListEvents" ></activity>
     </application>
 
 </manifest>

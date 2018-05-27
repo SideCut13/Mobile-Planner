@@ -6,11 +6,5 @@
         android:icon="@android:drawable/ic_input_add"
         android:title="Dodaj wydarzenie"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/delete_event_btn"
-        android:icon="@android:drawable/ic_delete"
-        android:title="Usuń wydarzenie"
-        app:showAsAction="always" />
-
 
 </menu>

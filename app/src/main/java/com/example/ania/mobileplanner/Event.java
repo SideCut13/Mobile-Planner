@@ -55,4 +55,13 @@ public class Event {
         this.time = time;
         this.notification = notification;
     }
+
+    public Event(String title) {
+        this.title = title;
+    }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }

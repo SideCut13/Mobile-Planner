@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <EditText
-        android:id="@+id/title_event"
+        android:id="@+id/update_title_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -14,7 +12,7 @@
         android:hint="Wpisz tytuł wydarzenia" />
 
     <EditText
-        android:id="@+id/description_event"
+        android:id="@+id/update_description_event"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -24,12 +22,10 @@
         android:hint="Wpisz opis wydarzenia"
         android:inputType="textCapSentences|textMultiLine"
         android:maxLength="2000"
-        android:maxLines="4"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="46dp" />
+        android:maxLines="4" />
 
     <EditText
-        android:id="@+id/date_event"
+        android:id="@+id/update_date_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -39,7 +35,7 @@
         android:hint="Wybierz datę" />
 
     <EditText
-        android:id="@+id/time_event"
+        android:id="@+id/update_time_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -49,7 +45,7 @@
         android:hint="Wybierz godzinę rozpoczęcia" />
 
     <Switch
-        android:id="@+id/switch_notification"
+        android:id="@+id/update_switch_notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -59,13 +55,11 @@
         android:textSize="18dp" />
 
     <Button
-        android:id="@+id/add_database"
+        android:id="@+id/update_add_database"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="143dp"
-        android:text="DODAJ" />
-
-
+        android:text="UPDATE" />
 </RelativeLayout>
