@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +85,18 @@ public class DBHelper extends SQLiteOpenHelper {
             }while(cursor.moveToNext());
         }
         return events;
+    }
+    public void updateEvent(Event event){
+        String id = DBContract.DBEntry._ID;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DBContract.DBEntry.COLUMN_NAME_TITLE, event.getTitle());
+        values.put(DBContract.DBEntry.COLUMN_NAME_DESCRIPTION, event.getDescription());
+        values.put(DBContract.DBEntry.COLUMN_NAME_DATE, event.getDate());
+        values.put(DBContract.DBEntry.COLUMN_NAME_TIME, event.getTime());
+        values.put(DBContract.DBEntry.COLUMN_NAME_NOTIFICATION, false);
+        db.update(DBContract.DBEntry.TABLE_NAME, values,  DBContract.DBEntry._ID + " = ?", new String[] { id } );
+        db.close();
     }
 
 }

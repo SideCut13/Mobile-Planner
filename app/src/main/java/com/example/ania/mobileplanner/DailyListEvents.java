@@ -3,6 +3,8 @@ package com.example.ania.mobileplanner;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,12 +28,7 @@ public class DailyListEvents extends AppCompatActivity{
     private DBHelper mDbHelper;
     private Button buttonDelete;
     private Button buttonUpdate;
-    private EditText dateEvent;
-    private DatePickerDialog.OnDateSetListener datePicker;
-    private Calendar calendar;
-    private EditText timeEvent;
-    private TimePickerDialog.OnTimeSetListener timePicker;
-    private Switch notificationSwitch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,14 +36,29 @@ public class DailyListEvents extends AppCompatActivity{
         mDbHelper = new DBHelper(this);
         listView = findViewById(R.id.list_event);
         buttonDelete = findViewById(R.id.button_delete_event);
+        buttonUpdate = findViewById(R.id.button_update_event);
+
+
         buttonDelete.setOnClickListener(v -> deleteEvent(v));
-
-
-
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               updateEvent(v);
+            }
+        });
 
         List events = mDbHelper.getEventsTitles();//getEvents();
         arrayAdapter = new ArrayAdapter<String>(this, R.layout.daily_event_list, R.id.text_list_title, events);
         listView.setAdapter(arrayAdapter);
+    }
+    public void updateEvent(View view){
+        //View parentView = (View) view.getParent();
+        //TextView titleTextView = parentView.findViewById(R.id.text_list_title);
+        Context context = getApplicationContext();
+        Intent updateEventIntent = new Intent(context, UpdateEvent.class);
+        startActivity(updateEventIntent);
+        Toast.makeText(getApplicationContext(), "update1", Toast.LENGTH_SHORT).show();
+
     }
     public void deleteEvent(View view){
         View parentView = (View) view.getParent();
@@ -82,24 +95,6 @@ public class DailyListEvents extends AppCompatActivity{
         cursor.close();
         db.close();
     }
-   /* public void updateEvent(){
-        View parentView = (View) view.getParent();
-        TextView titleTextView = parentView.findViewById(R.id.text_list_title);
-        String event = String.valueOf(titleTextView.getText());
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        db.delete(DBContract.DBEntry.TABLE_NAME, DBContract.DBEntry.COLUMN_NAME_TITLE + " = ? ", new String[]{event});
-        db.close();
-        updateView();
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(DBContract.DBEntry.COLUMN_NAME_TITLE, event.getTitle());
-        values.put(DBContract.DBEntry.COLUMN_NAME_DESCRIPTION, event.getDescription());
-        values.put(DBContract.DBEntry.COLUMN_NAME_DATE, event.getDate());
-        values.put(DBContract.DBEntry.COLUMN_NAME_TIME, event.getTime());
-        values.put(DBContract.DBEntry.COLUMN_NAME_NOTIFICATION, false);
-        //db.insertWithOnConflict(DBContract.DBEntry.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
-        db.insert(DBContract.DBEntry.TABLE_NAME, null, values);
-        db.close();
-    }*/
+
 
 }

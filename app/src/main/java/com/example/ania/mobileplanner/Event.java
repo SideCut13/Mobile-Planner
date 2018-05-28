@@ -1,7 +1,6 @@
 package com.example.ania.mobileplanner;
 
 public class Event {
-
     private String title;
     private String description;
     private String date;
@@ -47,6 +46,7 @@ public class Event {
     public void setNotification(String notification) {
         this.notification = notification;
     }
+
 
     public Event(String title, String description, String date, String time, String notification) {
         this.title = title;

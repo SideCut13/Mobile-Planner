@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/button_delete_event"
         android:layout_toStartOf="@+id/button_delete_event"
+        android:onClick="updateEvent"
         android:text="EDYTUJ" />
 
     <Button
