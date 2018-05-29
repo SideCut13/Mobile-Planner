@@ -65,7 +65,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="143dp"
-        android:text="DODAJ" />
+        android:text="DODAJ"
+        android:background="@drawable/ic_button_shape"
+        android:textColor="#ffff"/>
 
 
 </RelativeLayout>

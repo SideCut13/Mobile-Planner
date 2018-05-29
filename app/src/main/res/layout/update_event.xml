@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="79dp"
+        android:layout_marginTop="73dp"
         android:layout_weight="1"
         android:hint="Wpisz opis wydarzenia"
         android:inputType="textCapSentences|textMultiLine"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="134dp"
+        android:layout_marginTop="126dp"
         android:focusable="false"
         android:hint="Wybierz datę" />
 
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="191dp"
+        android:layout_marginTop="180dp"
         android:focusable="false"
         android:hint="Wybierz godzinę rozpoczęcia" />
 
@@ -61,5 +61,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="143dp"
-        android:text="UPDATE" />
+        android:text="UPDATE"
+        android:background="@drawable/ic_button_shape"
+        android:textColor="#ffff"/>
 </RelativeLayout>

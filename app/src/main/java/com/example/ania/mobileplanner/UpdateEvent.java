@@ -60,7 +60,7 @@ public class UpdateEvent extends AppCompatActivity{
         updateDateEvent.setOnClickListener(v -> new DatePickerDialog(UpdateEvent.this, updateDatePicker, updateCalendar.get(Calendar.YEAR), updateCalendar.get(Calendar.MONTH), updateCalendar.get(Calendar.DAY_OF_MONTH)).show());
 
         updateTimeEvent.setOnClickListener(v -> new TimePickerDialog(UpdateEvent.this, updateTimePicker, updateCalendar.get(Calendar.HOUR_OF_DAY), updateCalendar.get(Calendar.MINUTE), true).show());
-        updateAddToDatabase.setOnClickListener((event) -> updateEventToDatabase());
+     //   updateAddToDatabase.setOnClickListener((event) -> updateEventToDatabase());
     }
     private void updateDateLabel(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
@@ -78,9 +78,8 @@ public class UpdateEvent extends AppCompatActivity{
         else{
             notification = "false";
         }
-        Event event = new Event(updateTitleEvent.getText().toString(), updateDescriptionEvent.getText().toString(), updateDateEvent.getText().toString(), updateTimeEvent.getText().toString(), notification);
+       // Event event = new Event(updateTitleEvent.getText().toString(), updateDescriptionEvent.getText().toString(), updateDateEvent.getText().toString(), updateTimeEvent.getText().toString(), notification);
 
-        mDbHelper.updateEvent(event);
-        Toast.makeText(getApplicationContext(), "update to database", Toast.LENGTH_SHORT).show();
+      //  mDbHelper.updateEvent(event);
     }
 }

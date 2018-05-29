@@ -81,9 +81,11 @@ public class AddEvent extends AppCompatActivity{
         else{
             notification = "false";
         }
+
         Event event = new Event(titleEvent.getText().toString(), descriptionEvent.getText().toString(), dateEvent.getText().toString(), timeEvent.getText().toString(), notification);
 
         mDbHelper.insertEvent(event);
         Toast.makeText(getApplicationContext(), "add to database", Toast.LENGTH_SHORT).show();
     }
+
 }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/add_event_btn"
-        android:icon="@android:drawable/ic_input_add"
+        android:icon="@android:drawable/ic_menu_add"
         android:title="Dodaj wydarzenie"
         app:showAsAction="always" />
 

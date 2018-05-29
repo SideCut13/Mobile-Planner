@@ -1,11 +1,15 @@
 package com.example.ania.mobileplanner;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,9 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private Calendar calendar;
     private String date;
     private ListView listView;
-    //private ArrayAdapter<String> arrayAdapter;
     private TextView listText;
-
+   // private Button btnNotify;
 
 
     @Override
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         date = simpleDateFormat.format(calendar.getTime());
         listView = findViewById(R.id.list_event);
         listText = findViewById(R.id.text_list_title);
+        //btnNotify = findViewById(R.id.button_notify);
 
 
         //action bar
@@ -63,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         compactCalendarView.setUseThreeLetterAbbreviation(true);
 
         //calendar
-        Event event1= new Event(Color.RED, 1477054800000L, "XXXXX");
+        Event event1= new Event(Color.rgb(29,171,167), 1477054800000L, "XXXXX");
         compactCalendarView.addEvent(event1);
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
@@ -92,6 +96,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+      /*  btnNotify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendNotification(v);
+            }
+        });*/
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -113,6 +123,23 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void sendNotification(View view){
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_launcher_background)
+                        .setContentTitle("Mobile Planner")
+                        .setContentText("20:00 Spotkanie z Justyną"); //tutaj title z event database z danego dnia - godzina od godziny wydarzenia
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(contentIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, mBuilder.build());
+
     }
 
 
