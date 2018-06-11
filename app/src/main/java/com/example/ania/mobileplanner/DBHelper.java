@@ -41,7 +41,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(DBContract.DBEntry.COLUMN_NAME_DESCRIPTION, event.getDescription());
         values.put(DBContract.DBEntry.COLUMN_NAME_DATE, event.getDate());
         values.put(DBContract.DBEntry.COLUMN_NAME_TIME, event.getTime());
-        values.put(DBContract.DBEntry.COLUMN_NAME_NOTIFICATION, false);
+        values.put(DBContract.DBEntry.COLUMN_NAME_NOTIFICATION, event.getNotification());
         //db.insertWithOnConflict(DBContract.DBEntry.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
         db.insert(DBContract.DBEntry.TABLE_NAME, null, values);
         db.close();
@@ -60,12 +60,12 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return id;
     }*/
-    public Event getEvent(long id){
+    public Event getEvent(String title){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(DBContract.DBEntry.TABLE_NAME,
                 new String[]{DBContract.DBEntry._ID, DBContract.DBEntry.COLUMN_NAME_TITLE, DBContract.DBEntry.COLUMN_NAME_DESCRIPTION, DBContract.DBEntry.COLUMN_NAME_DATE, DBContract.DBEntry.COLUMN_NAME_TIME, DBContract.DBEntry.COLUMN_NAME_NOTIFICATION},
                 DBContract.DBEntry._ID + "=?",
-                new String[]{String.valueOf(id)},null,null, null, null);
+                new String[]{String.valueOf(title)},null,null, null, null);
         if(cursor != null){
             cursor.moveToFirst();
         }

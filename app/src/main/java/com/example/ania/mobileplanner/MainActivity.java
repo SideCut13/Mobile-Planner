@@ -1,5 +1,6 @@
 package com.example.ania.mobileplanner;
 
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentValues;
@@ -40,12 +41,20 @@ public class MainActivity extends AppCompatActivity {
     CompactCalendarView compactCalendarView;
     private DBHelper mDbHelper;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+    private SimpleDateFormat simpleDateFormatCurrent = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
     private Calendar calendar;
     private String date;
     private ListView listView;
     private TextView listText;
+    private Button btnAddEvent;
    // private Button btnNotify;
+    public Date dateClick;
+    public String currentDate;
+    com.example.ania.mobileplanner.Event event = null;
 
+    public Date getDateClick() {
+        return dateClick;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         date = simpleDateFormat.format(calendar.getTime());
         listView = findViewById(R.id.list_event);
         listText = findViewById(R.id.text_list_title);
+        btnAddEvent = findViewById(R.id.button_add_event);
+        currentDate = simpleDateFormatCurrent.format(calendar.getTime());
         //btnNotify = findViewById(R.id.button_notify);
 
 
@@ -66,6 +77,18 @@ public class MainActivity extends AppCompatActivity {
         compactCalendarView = findViewById(R.id.compactcalendar_view);
         compactCalendarView.setUseThreeLetterAbbreviation(true);
 
+        List<com.example.ania.mobileplanner.Event> events = mDbHelper.getEvents();
+        for (int i = 0; i < events.size(); i++) {
+            if(events.get(i).toString().contains("notification='1'")){
+                event = events.get(i);
+                Log.i("EVENT DATABASE", event.toString());
+                if(event.getDate().equals(currentDate)){
+
+                       // sendNotification();
+
+                }
+            }
+        }
         //calendar
         Event event1= new Event(Color.rgb(29,171,167), 1477054800000L, "XXXXX");
         compactCalendarView.addEvent(event1);
@@ -74,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDayClick(Date dateClicked) {
                 Context context = getApplicationContext();
                 //String date = listText.setText().toSting();
-
+                dateClick = dateClicked;
                 Intent listIntent = new Intent(context, DailyListEvents.class);
                 startActivity(listIntent);
                 /*if(dateClicked.toString().compareTo("Fri Oct 21 09:00:00 AST 2016")==0){
@@ -92,9 +115,14 @@ public class MainActivity extends AppCompatActivity {
                     actionBar.setTitle("Dzisiaj: " + date);
                 }
                 else{
+                    //actionBar.setTitle("Dzisiaj: " + date);
+                    //może żeby wyświetlało tylko miesiąc ? albo date tego dnia z miesiąca?
+                    //jak się przesunie to wtedy jest 1. czerwca 2018, amozę zrobić zeby było
+                    //
                     actionBar.setTitle(simpleDateFormat.format(firstDayOfNewMonth));
                 }
             }
+
         });
       /*  btnNotify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +130,14 @@ public class MainActivity extends AppCompatActivity {
                 sendNotification(v);
             }
         });*/
+      btnAddEvent.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              Context context = getApplicationContext();
+              Intent addEventIntent = new Intent(context, AddEvent.class);
+              startActivity(addEventIntent);
+          }
+      });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -125,17 +161,27 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void sendNotification(View view){
+    public void sendNotification(){
+        Log.i("NOTIFICATION LOG", "I'm here");
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.ic_launcher_background)
                         .setContentTitle("Mobile Planner")
-                        .setContentText("20:00 Spotkanie z Justyną"); //tutaj title z event database z danego dnia - godzina od godziny wydarzenia
+                        .setContentText(event.getTitle() + " " + event.getTime()); //tutaj title z event database z danego dnia - godzina od godziny wydarzenia
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(contentIntent);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(
+                ALARM_SERVICE);
+        Calendar alarmStartTime = Calendar.getInstance();
+        alarmStartTime.set(Calendar.HOUR_OF_DAY, 00);
+        alarmStartTime.set(Calendar.MINUTE, 14);
+        alarmStartTime.set(Calendar.SECOND, 0);
 
+       /* alarmManager.set(AlarmManager.RTC_WAKEUP,//System.currentTimeMillis()+20*1000
+                alarmStartTime.getTimeInMillis()
+                , contentIntent);*/
         // Add as notification
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(0, mBuilder.build());

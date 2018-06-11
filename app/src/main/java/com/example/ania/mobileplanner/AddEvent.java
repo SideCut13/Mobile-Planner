@@ -76,10 +76,10 @@ public class AddEvent extends AppCompatActivity{
     private void addEventToDatabase(){
         String notification;
         if(notificationSwitch.isChecked()){
-            notification = "true";
+            notification = "1";
         }
         else{
-            notification = "false";
+            notification = "0";
         }
 
         Event event = new Event(titleEvent.getText().toString(), descriptionEvent.getText().toString(), dateEvent.getText().toString(), timeEvent.getText().toString(), notification);
