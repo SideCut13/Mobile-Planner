@@ -113,6 +113,4 @@ public class DailyListEvents extends AppCompatActivity{
         cursor.close();
         db.close();
     }
-
-
 }

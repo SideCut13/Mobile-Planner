@@ -29,6 +29,9 @@ import android.widget.Toast;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     public Date dateClick;
     public String currentDate;
     com.example.ania.mobileplanner.Event event = null;
+    private AdView mAdView;
+
 
     public Date getDateClick() {
         return dateClick;
@@ -89,6 +94,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+        MobileAds.initialize(this,
+                "ca-app-pub-3940256099942544~3347511713");
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         //calendar
         Event event1= new Event(Color.rgb(29,171,167), 1477054800000L, "XXXXX");
         compactCalendarView.addEvent(event1);
